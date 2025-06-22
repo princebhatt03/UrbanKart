@@ -19,10 +19,11 @@ import Cart from './pages/products/Cart';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Shop from './pages/products/Shop';
+import CheckoutPage from './pages/products/Checkout';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Category from './pages/products/Category';
 import FAQPage from './components/FAGPage';
+import Orders from './pages/MyOrdersPage';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
 function App() {
@@ -77,7 +78,6 @@ function App() {
           path="/"
           element={<FrontPage />}
         />
-
         <Route
           path="/userRegister"
           element={<GoogleAuthWrapper1 />}
@@ -86,7 +86,6 @@ function App() {
           path="/userLogin"
           element={<GoogleAuthWrapper />}
         />
-
         <Route
           path="/userProfile"
           element={
@@ -112,10 +111,10 @@ function App() {
           }
         />
         <Route
-          path="/categories"
+          path="/orders"
           element={
             <ProtectedRoute>
-              <Category />
+              <Orders />
             </ProtectedRoute>
           }
         />
@@ -126,6 +125,10 @@ function App() {
               <Cart />
             </ProtectedRoute>
           }
+        />
+        <Route
+          path="/checkout"
+          element={<CheckoutPage />}
         />
         <Route
           path="/about"
@@ -139,7 +142,6 @@ function App() {
           path="/faqs"
           element={<FAQPage />}
         />
-
         <Route
           path="/adminLogin"
           element={<GoogleAuthWrapper2 />}
@@ -148,7 +150,6 @@ function App() {
           path="/adminRegister"
           element={<GoogleAuthWrapper3 />}
         />
-
         <Route
           path="/adminHome"
           element={
@@ -185,7 +186,6 @@ function App() {
           path="/admin/edit/:id"
           element={<EditProduct />}
         />
-
         {/* Catch-All for unknown routes */}
         <Route
           path="*"

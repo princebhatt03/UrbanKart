@@ -9,13 +9,13 @@ const flash = require('express-flash');
 const fs = require('fs');
 const http = require('http');
 const { Server } = require('socket.io');
-
 const connectToDb = require('./db/db');
 const userRoutes = require('./routes/user.routes');
 const adminRoutes = require('./routes/admin.routes');
 const productRoutes = require('./routes/product.routes');
 const authRouter = require('./routes/auth.routes');
 const cartRoutes = require('./routes/cart.routes');
+const orderRoutes = require('./routes/order.routes');
 
 connectToDb();
 
@@ -94,6 +94,7 @@ app.use('/api/user', userRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/cart', cartRoutes);
+app.use('/api/orders', orderRoutes);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 module.exports = { app, server };

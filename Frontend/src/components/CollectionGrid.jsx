@@ -17,7 +17,7 @@ const collections = [
 
 const CollectionGrid = () => {
   return (
-    <section className="py-12 bg-white">
+    <section className="py-12 bg-[#F9FAFB]">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {collections.map((item, index) => (

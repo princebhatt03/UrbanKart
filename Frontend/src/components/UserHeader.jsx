@@ -5,7 +5,7 @@ import {
   Menu,
   X,
   ShoppingCart,
-  LayoutGrid,
+  Package,
   Home,
   Store,
   LogIn,
@@ -67,11 +67,7 @@ const UserHeader = () => {
   const navLinks = [
     { label: 'Home', path: '/', icon: <Home size={18} /> },
     { label: 'Shop', path: '/shop', icon: <Store size={18} /> },
-    {
-      label: 'Categories',
-      path: '/categories',
-      icon: <LayoutGrid size={18} />,
-    },
+    { label: 'Order', path: '/orders', icon: <Package size={18} /> },
     { label: 'MyCart', path: '/cart', icon: <ShoppingCart size={18} /> },
   ];
 

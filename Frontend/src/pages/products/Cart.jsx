@@ -7,11 +7,14 @@ import { motion } from 'framer-motion';
 import { FaTrashAlt } from 'react-icons/fa';
 import { FiMinus, FiPlus } from 'react-icons/fi';
 import { MdShoppingCart } from 'react-icons/md';
+import { toast } from 'react-toastify';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
 
 export default function CartPage() {
   const navigate = useNavigate();
+  const [note, setNote] = useState('');
+  const [agreeToTerms, setAgreeToTerms] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -193,6 +196,8 @@ export default function CartPage() {
                   rows="4"
                   className="w-full border p-2 rounded resize-none"
                   placeholder="Write your note..."
+                  value={note}
+                  onChange={e => setNote(e.target.value)}
                 />
               </div>
               <div className="bg-white shadow rounded p-4 space-y-4">
@@ -207,10 +212,25 @@ export default function CartPage() {
                   <input
                     type="checkbox"
                     className="accent-[#FF708E]"
+                    checked={agreeToTerms}
+                    onChange={e => setAgreeToTerms(e.target.checked)}
                   />
                   I agree with the terms and conditions
                 </label>
-                <button className="w-full py-2 bg-[#141414] text-white font-semibold rounded hover:bg-[#FF708E] transition-all">
+                <button
+                  type="submit"
+                  className="w-full py-2 bg-[#141414] text-white font-semibold rounded hover:bg-[#FF708E] transition-all"
+                  onClick={() => {
+                    if (!agreeToTerms) {
+                      toast.error('Please agree to the terms and conditions.');
+                      return;
+                    }
+                    if (cartItems.length === 0) {
+                      toast.error('Cart is empty');
+                      return;
+                    }
+                    navigate('/checkout', { state: { cartItems, note } });
+                  }}>
                   Checkout
                 </button>
               </div>

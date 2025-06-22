@@ -2,6 +2,7 @@ import React from 'react';
 import cosmetic1 from '../assets/images/collection/cosmetic1.jpg';
 import cosmetic2 from '../assets/images/collection/cosmetic2.jpg';
 import cosmetic3 from '../assets/images/collection/cosmetic3.jpg';
+import { useNavigate } from 'react-router-dom';
 
 const beautyPicks = [
   {
@@ -28,6 +29,10 @@ const beautyPicks = [
 ];
 
 const FeaturedBeautyPicks = () => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate('/shop');
+  };
   return (
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
@@ -55,7 +60,9 @@ const FeaturedBeautyPicks = () => {
                 <p className="hover:text-[#FF708E]">{item.title}</p>
               </h3>
               <p className="text-sm text-gray-600 px-2">{item.description}</p>
-              <p className="inline-block cursor-pointer text-[#FF708E] font-medium border border-[#FF708E] px-5 py-2 rounded-md hover:bg-[#FF708E] hover:text-white transition">
+              <p
+                className="inline-block cursor-pointer text-[#FF708E] font-medium border border-[#FF708E] px-5 py-2 rounded-md hover:bg-[#FF708E] hover:text-white transition"
+                onClick={handleClick}>
                 {item.button}
               </p>
             </div>
