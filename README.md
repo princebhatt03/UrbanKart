@@ -43,20 +43,20 @@
 git clone https://github.com/princebhatt03/UrbanKart
 cd UrbanKart-E-Commerce
 ```
-🔧 Backend Setup
+### 🔧 Backend Setup
 ```
 cd Backend
 npm install
 nodemon or npx nodemon
 ```
-💻 Frontend Setup
+### 💻 Frontend Setup
 ```
 cd Frontend
 npm install
 npm run dev
 ```
-📚 Features
-👤 USER FEATURES
+### 📚 Features
+## 👤 USER FEATURES
 ✅ Register/Login with email and password
 
 🔐 Login with Google OAuth 2.0
@@ -69,7 +69,7 @@ npm run dev
 
 🛍️ Browse all products
 
-👨‍💼 ADMIN FEATURES
+## 👨‍💼 ADMIN FEATURES
 📝 Register/Login with secure authentication
 
 🔐 Google OAuth Login (Admins)
@@ -82,7 +82,7 @@ npm run dev
 
 🔐 Protected admin-only routes and access
 
-🛍️ PRODUCT FEATURES
+## 🛍️ PRODUCT FEATURES
 👁️ View all products (open to all)
 
 📦 Add/Edit/Delete product (admin-only)
@@ -91,7 +91,6 @@ npm run dev
 
 🔍 View single product (admin-only)
 
-💳 UPCOMING FEATURES (Coming Soon)
 🛒 Add to Cart / Wishlist System
 
 💵 Razorpay/Stripe Payment Gateway Integration
@@ -104,15 +103,15 @@ npm run dev
 
 📡 Real-Time Notifications using Socket.io
 
-🔐 AUTHENTICATION FLOW
-🔑 JWT AUTHENTICATION
+### 🔐 AUTHENTICATION FLOW
+## 🔑 JWT AUTHENTICATION
 Used for both User and Admin sessions
 
 Stored in localStorage
 
 Protects routes with custom middleware
 
-🧠 GOOGLE OAUTH FLOW
+## 🧠 GOOGLE OAUTH FLOW
 OAuth 2.0 Authorization Code Grant Type
 
 Used for both User and Admin login/registration
@@ -121,7 +120,7 @@ Google-logged accounts are saved with a placeholder password (e.g. _GoogleAuth)
 
 Custom logic prevents password validation on OAuth accounts
 
-📁 BACKEND FOLDER STRUCTURE
+### 📁 BACKEND FOLDER STRUCTURE
 ```
 Backend/
 │
@@ -153,9 +152,9 @@ Backend/
 ├── server.js
 └── ...
 ```
-🔌 API ROUTES
+### 🔌 API ROUTES
 
-👨‍💼 ADMIN ROUTES
+## 👨‍💼 ADMIN ROUTES
 ```
 | Method | Endpoint                        | Protected  | Description                      |
 | ------ | ------------------------------- | ---------  | -------------------------------- |
@@ -167,7 +166,7 @@ Backend/
 | POST   | `/api/admin/logout`             | ❌         | Logout (Client-side)             |
 
 ```
-👤 USER ROUTES
+## 👤 USER ROUTES
 ```
 | Method | Endpoint                      | Protected   | Description                     |
 | ------ | ----------------------------- | ---------   | ------------------------------- |
@@ -179,7 +178,7 @@ Backend/
 | DELETE | `/api/user/delete/:id`        | ✅         | Delete user (password required) |
 
 ```
-🛍️ PRODUCT ROUTES
+## 🛍️ PRODUCT ROUTES
 ```
 | Method | Endpoint           | Protected  | Description              |
 | ------ | ------------------ | ---------  | ------------------------ |
@@ -190,7 +189,7 @@ Backend/
 | DELETE | `/api/product/:id` | ✅ (Admin) | Delete product by ID     |
 
 ```
-## 🌐 Environment Variables Setup
+### 🌐 Environment Variables Setup
 
 ### 🔒 Backend: `backend/.env`
 ```env
@@ -207,42 +206,30 @@ GOOGLE_CLIENT_SECRET=your_google_client_secret
 VITE_BACKEND_URL=http://localhost:3000
 VITE_GOOGLE_CLIENT_ID=your_google_client_id
 ```
-🚀 Project Setup
-📦 Backend
+### 🚀 Project Setup
+## 📦 Backend
 ```
 cd backend
 npm install
 nodemon or npx nodemon
 ```
 
-💻 Frontend
+## 💻 Frontend
 ```
 cd frontend
 npm install
 npm run dev
 ```
-🖼️ Screenshots
+## 🖼️ Screenshots
 ![s1](https://github.com/user-attachments/assets/c641e61c-4325-4679-b195-d822dd70ccf8)
 ![s2](https://github.com/user-attachments/assets/55072845-b2db-4616-8b78-6e0dc3295fff)
 
-🧩 Future Integrations
-🛒 Cart/Wishlist Functionality (Per User basis using MongoDB)
-
-💳 Payment Gateway Integration (Stripe/Razorpay)
-
+### 🧩 Future Integrations
 📦 Order Module (CRUD, Status, Invoice)
-
-📈 Dashboard Analytics for Admins
-
 🧾 PDF Receipts, Email Confirmation
-
 🧑‍🤝‍🧑 User Reviews & Ratings
 
-📡 Socket.io: Real-time order and admin notifications
-
-🔒 Role-based Access Control (RBAC)
-
-👨‍💻 Developer
+### 👨‍💻 Developer
 Prince Bhatt
 
 📧 Email: princebhatt316@gmail.com
