@@ -40,7 +40,7 @@
 ### 📦 Clone & Install
 
 ```bash
-git clone https://github.com/princebhatt03/UrbanKart-E-Commerce
+git clone https://github.com/princebhatt03/UrbanKart
 cd UrbanKart-E-Commerce
 ```
 🔧 Backend Setup
