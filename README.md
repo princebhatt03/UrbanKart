@@ -47,7 +47,7 @@ cd UrbanKart-E-Commerce
 ```
 cd Backend
 npm install
-npm run dev
+nodemon or npx nodemon
 ```
 💻 Frontend Setup
 ```
