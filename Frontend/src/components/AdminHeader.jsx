@@ -43,6 +43,9 @@ const AdminHeader = () => {
           } else {
             imageURL = parsedAdmin.profileImage;
           }
+        } else if (parsedAdmin.picture) {
+          // Fallback for Google OAuth
+          imageURL = parsedAdmin.picture;
         }
 
         setProfileImageUrl(imageURL);

@@ -79,7 +79,7 @@ const FrontPage = () => {
       );
 
       if (response.data.success || response.status === 200) {
-        toast.success('✅ Product added to cart');
+        toast.success('Product added to cart');
       } else {
         toast.error(response.data.message || '⚠️ Something went wrong');
       }

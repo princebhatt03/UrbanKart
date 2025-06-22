@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useGoogleLogin } from '@react-oauth/google';
+import { toast } from 'react-toastify';
+
 import Header from '../../components/UserHeader';
 import Footer from '../../components/Footer';
 import img1 from '../../assets/images/login.png';
-import { useGoogleLogin } from '@react-oauth/google';
 import { googleAuth } from '../../api';
 
 const UserLogin = () => {
   const navigate = useNavigate();
-  const [successMessage, setSuccessMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     username: '',
@@ -23,18 +24,21 @@ const UserLogin = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
+    setLoading(true);
 
     const finalURL =
       import.meta.env.VITE_BACKEND_URL ||
       import.meta.env.VITE_LOCAL_BACKEND_URL;
 
     if (!finalURL) {
-      setErrorMessage('❌ Backend URL is not configured in .env file');
+      toast.error('Backend URL is not configured in .env file');
+      setLoading(false);
       return;
     }
 
     if (!formData.username.trim() || !formData.password.trim()) {
-      setErrorMessage('❌ Please fill both username and password');
+      toast.error('Please fill both username and password');
+      setLoading(false);
       return;
     }
 
@@ -51,28 +55,23 @@ const UserLogin = () => {
       const data = await response.json();
 
       if (response.ok && data.token && data.user) {
-        setSuccessMessage('✅ Login successful!');
-        setErrorMessage('');
+        toast.success('Login successful!');
         localStorage.setItem('userToken', data.token);
         localStorage.setItem('userInfo', JSON.stringify(data.user));
-        navigate('/');
+        setTimeout(() => navigate('/'), 2000);
       } else {
-        setErrorMessage(data.message || '❌ Invalid username or password.');
-        setSuccessMessage('');
+        toast.error(data.message || 'Invalid username or password.');
       }
     } catch (error) {
-      console.error('❌ Login Error:', error);
-      setErrorMessage('⚠️ Server error! Please try again later.');
-      setSuccessMessage('');
+      console.error('Login Error:', error);
+      toast.error('⚠️ Server error! Please try again later.');
+    } finally {
+      setLoading(false);
     }
-
-    setTimeout(() => {
-      setSuccessMessage('');
-      setErrorMessage('');
-    }, 4000);
   };
 
   const responseGoogle = async authResult => {
+    setLoading(true);
     try {
       if (authResult['code']) {
         const result = await googleAuth(authResult['code']);
@@ -80,23 +79,22 @@ const UserLogin = () => {
 
         const finalUser = {
           ...user,
-          password: '_GoogleAuth', // ❗️Ensure dummy password for Google users
+          password: '_GoogleAuth',
           profileImage: user.profileImage || user.image || '',
         };
 
         localStorage.setItem('userToken', token);
         localStorage.setItem('userInfo', JSON.stringify(finalUser));
 
-        navigate('/');
+        toast.success('Google login successful!');
+        setTimeout(() => navigate('/'), 2000);
       }
     } catch (error) {
-      console.log('❌ Error while handling Google Auth: ', error);
-      setErrorMessage('⚠️ Google login failed. Try again.');
+      console.error('Google Auth Error:', error);
+      toast.error('⚠️ Google login failed. Try again.');
+    } finally {
+      setLoading(false);
     }
-
-    setTimeout(() => {
-      setErrorMessage('');
-    }, 4000);
   };
 
   const handleGoogleLogin = useGoogleLogin({
@@ -119,23 +117,6 @@ const UserLogin = () => {
             <h2 className="text-3xl font-extrabold text-indigo-700 mb-6 text-center md:text-left">
               Welcome Back
             </h2>
-
-            {errorMessage && (
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-red-500 mb-4 text-center font-semibold">
-                {errorMessage}
-              </motion.p>
-            )}
-            {successMessage && (
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-green-600 mb-4 text-center font-semibold">
-                {successMessage}
-              </motion.p>
-            )}
 
             <form
               onSubmit={handleSubmit}
@@ -166,8 +147,13 @@ const UserLogin = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 type="submit"
-                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl font-semibold shadow-lg transition duration-300">
-                Login
+                disabled={loading}
+                className={`w-full py-3 rounded-xl font-semibold shadow-lg transition duration-300 text-white ${
+                  loading
+                    ? 'bg-indigo-400 cursor-not-allowed'
+                    : 'bg-indigo-600 hover:bg-indigo-700'
+                }`}>
+                {loading ? 'Logging in...' : 'Login'}
               </motion.button>
 
               <motion.button
@@ -201,6 +187,7 @@ const UserLogin = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={handleGoogleLogin}
+                disabled={loading}
                 className="flex items-center justify-center w-full bg-white border border-gray-300 rounded-xl py-3 text-gray-700 font-semibold shadow-md hover:shadow-lg transition mb-6">
                 <svg
                   className="w-6 h-6 mr-2"

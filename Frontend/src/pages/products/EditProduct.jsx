@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const EditProduct = () => {
   const { id } = useParams();
@@ -15,7 +17,6 @@ const EditProduct = () => {
   });
   const [preview, setPreview] = useState('');
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState({ type: '', text: '' });
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -34,7 +35,7 @@ const EditProduct = () => {
           : `/uploads/${res.data.image}`;
         setPreview(`${backendURL}${imagePath}`);
       } catch (err) {
-        setMessage({ type: 'error', text: 'Failed to fetch product' });
+        toast.error('Failed to fetch product.');
       }
     };
 
@@ -47,22 +48,26 @@ const EditProduct = () => {
   };
 
   const handleFileChange = e => {
-    setFormData(prev => ({ ...prev, image: e.target.files[0] }));
-    setPreview(URL.createObjectURL(e.target.files[0]));
+    const file = e.target.files[0];
+    if (file) {
+      setFormData(prev => ({ ...prev, image: file }));
+      setPreview(URL.createObjectURL(file));
+    }
   };
 
   const handleSubmit = async e => {
     e.preventDefault();
     setLoading(true);
-    setMessage({ type: '', text: '' });
 
     try {
       const token = localStorage.getItem('adminToken');
       const payload = new FormData();
+
       payload.append('name', formData.name);
       payload.append('price', formData.price);
       payload.append('description', formData.description);
       payload.append('category', formData.category);
+
       if (formData.image instanceof File) {
         payload.append('image', formData.image);
       }
@@ -77,10 +82,10 @@ const EditProduct = () => {
         },
       });
 
-      setMessage({ type: 'success', text: res.data.message });
-      setTimeout(() => navigate('/adminHome'), 1500);
+      toast.success(res.data.message || 'Product updated successfully!');
+      setTimeout(() => navigate('/adminHome'), 2000);
     } catch (err) {
-      setMessage({ type: 'error', text: 'Update failed' });
+      toast.error('Update failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -89,17 +94,6 @@ const EditProduct = () => {
   return (
     <div className="max-w-xl mx-auto mt-10 p-6 bg-white shadow-md rounded">
       <h2 className="text-2xl font-bold text-center mb-4">Edit Product</h2>
-
-      {message.text && (
-        <div
-          className={`mb-4 p-3 text-sm rounded ${
-            message.type === 'success'
-              ? 'bg-green-100 text-green-800'
-              : 'bg-red-100 text-red-800'
-          }`}>
-          {message.text}
-        </div>
-      )}
 
       <form
         onSubmit={handleSubmit}

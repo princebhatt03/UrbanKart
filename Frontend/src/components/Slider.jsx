@@ -4,6 +4,7 @@ import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import img1 from '../assets/images/SliderComponent/Slider1.jpg';
+import { useNavigate } from 'react-router-dom';
 import img2 from '../assets/images/SliderComponent/Slider2.jpg';
 import img3 from '../assets/images/SliderComponent/Slider4.jpg';
 
@@ -29,6 +30,7 @@ const slides = [
 ];
 
 const HeroSlider = () => {
+  const navigate = useNavigate();
   return (
     <div className="w-full h-screen relative">
       <Swiper
@@ -55,7 +57,9 @@ const HeroSlider = () => {
                   <p className="text-sm sm:text-base md:text-lg animate-fade-in-up">
                     {slide.subtitle}
                   </p>
-                  <button className="mt-4 px-6 py-3 bg-[#FF708E] text-white font-medium rounded hover:opacity-70 cursor-pointer transition animate-fade-in-up">
+                  <button
+                    onClick={() => navigate('/shop')}
+                    className="mt-4 px-6 py-3 bg-[#FF708E] text-white font-medium rounded hover:opacity-70 cursor-pointer transition animate-fade-in-up">
                     {slide.btnText}
                   </button>
                 </div>

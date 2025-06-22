@@ -6,9 +6,11 @@ import Header from '../../components/UserHeader';
 import Footer from '../../components/Footer';
 import { useGoogleLogin } from '@react-oauth/google';
 import { googleAuth } from '../../api';
+import { toast } from 'react-toastify';
 
 const UserRegister = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
 
   const [formData, setFormData] = useState({
@@ -21,12 +23,10 @@ const UserRegister = () => {
 
   const [profileImage, setProfileImage] = useState(null);
 
-  const [successMessage, setSuccessMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
   const handleImageChange = e => {
     const file = e.target.files[0];
     setProfileImage(file);
@@ -41,13 +41,15 @@ const UserRegister = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
+    setLoading(true); 
 
     const finalURL =
       import.meta.env.VITE_BACKEND_URL ||
       import.meta.env.VITE_LOCAL_BACKEND_URL;
 
     if (!finalURL) {
-      setErrorMessage('❌ Backend URL is not configured in .env file');
+      toast.error('Backend URL is not configured in .env file');
+      setLoading(false);
       return;
     }
 
@@ -60,7 +62,8 @@ const UserRegister = () => {
       !mobile.trim() ||
       !password.trim()
     ) {
-      setErrorMessage('❌ Please fill all fields');
+      toast.error('Please fill all fields');
+      setLoading(false);
       return;
     }
 
@@ -81,25 +84,17 @@ const UserRegister = () => {
       const result = await response.json();
 
       if (response.ok) {
-        setSuccessMessage('User registered successfully!');
-        setErrorMessage('');
-        setTimeout(() => {
-          navigate('/userLogin');
-        }, 2000);
+        toast.success('User registered successfully, Now Login to Continue');
+        setTimeout(() => navigate('/userLogin'), 2000);
       } else {
-        setErrorMessage(result.message || '❌ Registration failed.');
-        setSuccessMessage('');
+        toast.error(result.message || 'Registration failed.');
       }
     } catch (error) {
-      console.error('❌ Registration Error:', error);
-      setErrorMessage('⚠️ Server error! Please try again later.');
-      setSuccessMessage('');
+      console.error('Registration Error:', error);
+      toast.error('⚠️ Server error! Please try again later.');
+    } finally {
+      setLoading(false); 
     }
-
-    setTimeout(() => {
-      setSuccessMessage('');
-      setErrorMessage('');
-    }, 4000);
   };
 
   const responseGoogle = async authResult => {
@@ -110,23 +105,20 @@ const UserRegister = () => {
 
         const finalUser = {
           ...user,
-          password: '_GoogleAuth', // ❗️Ensure dummy password for Google users
+          password: '_GoogleAuth',
           profileImage: user.profileImage || user.image || '',
         };
 
         localStorage.setItem('userToken', token);
         localStorage.setItem('userInfo', JSON.stringify(finalUser));
 
-        navigate('/');
+        toast.success('Google registration successful!');
+        setTimeout(() => navigate('/'), 2000);
       }
     } catch (error) {
-      console.log('❌ Error while handling Google Auth: ', error);
-      setErrorMessage('⚠️ Google login failed. Try again.');
+      console.log('Error while handling Google Auth: ', error);
+      toast.error('⚠️ Google login failed. Try again.');
     }
-
-    setTimeout(() => {
-      setErrorMessage('');
-    }, 4000);
   };
 
   const handleGoogleLogin = useGoogleLogin({
@@ -149,23 +141,6 @@ const UserRegister = () => {
             <h2 className="text-3xl font-extrabold text-indigo-700 text-center mb-6">
               Create an Account
             </h2>
-
-            {errorMessage && (
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-red-500 mb-4 text-center font-semibold">
-                {errorMessage}
-              </motion.p>
-            )}
-            {successMessage && (
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-green-600 mb-4 text-center font-semibold">
-                {successMessage}
-              </motion.p>
-            )}
 
             <form
               onSubmit={handleSubmit}
@@ -234,8 +209,13 @@ const UserRegister = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 type="submit"
-                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl font-semibold shadow-lg">
-                Register
+                disabled={loading}
+                className={`w-full py-3 rounded-xl font-semibold shadow-lg transition duration-300 text-white ${
+                  loading
+                    ? 'bg-indigo-400 cursor-not-allowed'
+                    : 'bg-indigo-600 hover:bg-indigo-700'
+                }`}>
+                {loading ? 'Registering...' : 'Register'}
               </motion.button>
 
               <motion.button
@@ -278,7 +258,7 @@ const UserRegister = () => {
                     fill="#4285F4"
                   />
                   <path
-                    d="M272 544.3c74.3 0 136.7-24.6 182.2-66.8l-89.4-69.4c-24.8 16.7-56.6 26.6-92.8 26.6-71.3 0-131.8-48-153.6-112.9H26.7v70.7c45.4 89.3 138.9 151.8 245.3 151.8z"
+                    d="M272 544.3c74.0 0 136.7-24.6 182.2-66.8l-89.4-69.4c-24.8 16.7-56.6 26.6-92.8 26.6-71.3 0-131.8-48-153.6-112.9H26.7v70.7c45.4 89.3 138.9 151.8 245.3 151.8z"
                     fill="#34A853"
                   />
                   <path

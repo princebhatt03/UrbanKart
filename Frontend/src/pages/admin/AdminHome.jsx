@@ -4,6 +4,8 @@ import Header from '../../components/UserHeader';
 import axios from 'axios';
 import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa';
 import AdminHeader from '../../components/AdminHeader';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AdminHome = () => {
   const BACKEND_URL =
@@ -43,8 +45,6 @@ const AdminHome = () => {
   const handleDelete = async () => {
     try {
       const token = localStorage.getItem('adminToken');
-      const BACKEND_URL =
-        import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
 
       await axios.delete(`${BACKEND_URL}/api/products/${selectedProduct}`, {
         headers: {
@@ -54,11 +54,14 @@ const AdminHome = () => {
       });
 
       setProducts(products.filter(p => p._id !== selectedProduct));
+      toast.success('Product deleted successfully!');
       setShowModal(false);
       setPassword('');
       setModalError('');
     } catch (err) {
+      console.error(err);
       setModalError('Incorrect password or deletion failed.');
+      toast.error('Deletion failed. Please check password.');
     }
   };
 
@@ -102,6 +105,7 @@ const AdminHome = () => {
                       : `/uploads/${product.image}`
                   }`}
                   alt={product.name}
+                  className="w-full h-48 object-cover rounded mb-3"
                 />
 
                 <h3 className="text-lg font-bold text-gray-800">

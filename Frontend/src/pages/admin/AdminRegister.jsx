@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Header from '../../components/AdminHeader';
 import Footer from '../../components/Footer';
 import adminRegisterBg from '../../assets/images/register.jpg';
@@ -22,9 +24,6 @@ const AdminRegister = () => {
 
   const [profileImage, setProfileImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
-
-  const [successMessage, setSuccessMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleChange = e => {
@@ -57,8 +56,7 @@ const AdminRegister = () => {
       !mobile.trim() ||
       !password.trim()
     ) {
-      setErrorMessage('❌ Please fill all fields');
-      setSuccessMessage('');
+      toast.error('Please fill all fields');
       return;
     }
 
@@ -81,35 +79,23 @@ const AdminRegister = () => {
         `${finalURL}/api/admin/register`,
         formData,
         {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
+          headers: { 'Content-Type': 'multipart/form-data' },
         }
       );
 
       if (response.data.success) {
-        setSuccessMessage('Admin registered successfully!');
-        setErrorMessage('');
-
-        setTimeout(() => {
-          navigate('/adminLogin');
-        }, 2000);
+        toast.success('Admin registered successfully, Now Login to Continue');
+        setTimeout(() => navigate('/adminLogin'), 2000);
       } else {
-        setErrorMessage(response.data.message || '❌ Registration failed.');
-        setSuccessMessage('');
+        toast.error(response.data.message || 'Registration failed.');
       }
     } catch (error) {
-      setErrorMessage(
+      toast.error(
         error.response?.data?.message ||
           '⚠️ Server error! Please try again later.'
       );
-      setSuccessMessage('');
     } finally {
       setLoading(false);
-      setTimeout(() => {
-        setSuccessMessage('');
-        setErrorMessage('');
-      }, 4000);
     }
   };
 
@@ -124,26 +110,23 @@ const AdminRegister = () => {
 
         const { token, admin } = result.data;
 
-        // ✅ Save admin info and token properly
         localStorage.setItem('adminToken', token);
         localStorage.setItem(
           'adminInfo',
           JSON.stringify({
             ...admin,
-            password: '_GoogleAuth', // Mark Google auth
+            password: '_GoogleAuth',
             profileImage: admin.profileImage || admin.image || '',
           })
         );
 
-        window.dispatchEvent(new Event('storage')); // optional, in case other tabs use it
-        navigate('/adminHome');
+        toast.success('Google registration successful!');
+        setTimeout(() => navigate('/adminHome'), 1500);
       }
     } catch (error) {
-      console.log('❌ Google Auth Error:', error);
-      setErrorMessage('⚠️ Google login failed. Please try again.');
+      console.log('Google Auth Error:', error);
+      toast.error('⚠️ Google login failed. Please try again.');
     }
-
-    setTimeout(() => setErrorMessage(''), 4000);
   };
 
   const handleGoogleLogin = useGoogleLogin({
@@ -166,23 +149,6 @@ const AdminRegister = () => {
             <h2 className="text-3xl font-extrabold mb-6 text-center md:text-left text-indigo-700">
               Register as Admin
             </h2>
-
-            {errorMessage && (
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-red-500 mb-4 text-center font-semibold">
-                {errorMessage}
-              </motion.p>
-            )}
-            {successMessage && (
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-green-600 mb-4 text-center font-semibold">
-                {successMessage}
-              </motion.p>
-            )}
 
             <form
               onSubmit={handleSubmit}
@@ -315,7 +281,6 @@ const AdminRegister = () => {
                   className="w-6 h-6 mr-2"
                   viewBox="0 0 533.5 544.3"
                   xmlns="http://www.w3.org/2000/svg">
-                  {/* Google Logo */}
                   <path
                     d="M533.5 278.4c0-17.7-1.6-35-4.7-51.7H272v97.9h146.8c-6.4 34.6-25.8 63.9-55.3 83.4v69.4h89.4c52.2-48 82.6-119 82.6-198.9z"
                     fill="#4285F4"

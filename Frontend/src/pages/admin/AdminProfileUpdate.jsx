@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import image1 from '../../assets/images/prof.webp';
 
 const AdminProfileUpdate = () => {
@@ -9,8 +11,6 @@ const AdminProfileUpdate = () => {
   const [formData, setFormData] = useState(null);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [currentPassword, setCurrentPassword] = useState('');
-  const [errorMsg, setErrorMsg] = useState('');
-  const [successMsg, setSuccessMsg] = useState('');
   const [previewImage, setPreviewImage] = useState(null);
   const [profileImageFile, setProfileImageFile] = useState(null);
   const [isGoogleAdmin, setIsGoogleAdmin] = useState(false);
@@ -64,40 +64,35 @@ const AdminProfileUpdate = () => {
 
   const openPasswordModal = e => {
     e.preventDefault();
-    setErrorMsg('');
 
     if (
       !isGoogleAdmin &&
       formData.newPassword &&
       formData.newPassword !== formData.confirmNewPassword
     ) {
-      setErrorMsg('New passwords do not match!');
+      toast.error('New passwords do not match!');
       return;
     }
 
     if (isGoogleAdmin) {
-      handleUpdate(); // No modal needed
+      handleUpdate();
     } else {
       setShowPasswordModal(true);
     }
   };
 
   const handleUpdate = async () => {
-    setErrorMsg('');
-    setSuccessMsg('');
-
     if (!admin) {
-      setErrorMsg('Admin data not loaded.');
+      toast.error('⚠️ Admin data not loaded.');
       return;
     }
 
     if (!isGoogleAdmin && !currentPassword) {
-      setErrorMsg('Please enter your current password to confirm.');
+      toast.error('Please enter your current password to confirm.');
       return;
     }
 
     const payload = new FormData();
-
     if (!isGoogleAdmin) payload.append('currentPassword', currentPassword);
 
     if (formData.fullName !== admin.fullName)
@@ -138,7 +133,6 @@ const AdminProfileUpdate = () => {
         }
 
         localStorage.setItem('adminInfo', JSON.stringify(data.admin));
-
         if (data.token) {
           localStorage.setItem('adminToken', data.token);
           window.dispatchEvent(new Event('storage'));
@@ -152,9 +146,10 @@ const AdminProfileUpdate = () => {
             updatedImageURL = data.admin.profileImage;
           }
         }
+
         setAdmin(data.admin);
         setPreviewImage(updatedImageURL);
-        setSuccessMsg('Profile updated successfully!');
+        toast.success('Profile updated successfully!');
         setShowPasswordModal(false);
         setCurrentPassword('');
         setFormData(prev => ({
@@ -162,11 +157,11 @@ const AdminProfileUpdate = () => {
           profileImage: data.admin.profileImage,
         }));
       } else {
-        setErrorMsg(data.message || 'Failed to update profile.');
+        toast.error(data.message || 'Failed to update profile.');
       }
     } catch (err) {
       console.error('Update Error:', err);
-      setErrorMsg('Server error! Please try again later.');
+      toast.error('⚠️ Server error! Please try again later.');
     }
   };
 
@@ -188,15 +183,6 @@ const AdminProfileUpdate = () => {
         <h2 className="text-2xl font-bold text-center mb-6 text-orange-700">
           Update Admin Profile
         </h2>
-
-        {(errorMsg || successMsg) && (
-          <p
-            className={`mb-4 text-center font-semibold ${
-              errorMsg ? 'text-red-600' : 'text-green-600'
-            }`}>
-            {errorMsg || successMsg}
-          </p>
-        )}
 
         <form
           onSubmit={openPasswordModal}
@@ -317,15 +303,11 @@ const AdminProfileUpdate = () => {
                 className="w-full px-4 py-3 mb-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400"
                 autoFocus
               />
-              {errorMsg && (
-                <p className="text-red-600 text-center mb-2">{errorMsg}</p>
-              )}
               <div className="flex flex-col sm:flex-row gap-3 justify-between">
                 <button
                   onClick={() => {
                     setShowPasswordModal(false);
                     setCurrentPassword('');
-                    setErrorMsg('');
                   }}
                   className="w-full sm:w-auto px-5 py-2 rounded-xl border border-gray-400 hover:bg-gray-100 transition">
                   Cancel

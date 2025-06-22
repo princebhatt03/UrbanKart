@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import defaultImage from '../../assets/images/prof.webp';
 
 const AdminDelete = () => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
   const [admin, setAdmin] = useState(null);
   const [token, setToken] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
@@ -29,7 +28,7 @@ const AdminDelete = () => {
           }
 
           if (!parsedAdmin._id) {
-            setErrorMessage('Invalid admin data. Please log in again.');
+            toast.error('Invalid admin data. Please log in again.');
             navigate('/adminLogin');
             return;
           }
@@ -55,23 +54,18 @@ const AdminDelete = () => {
     };
 
     loadAdmin();
-
     window.addEventListener('storage', loadAdmin);
     return () => window.removeEventListener('storage', loadAdmin);
   }, [navigate]);
 
   const handleDelete = async () => {
-    setErrorMessage('');
-    setSuccessMessage('');
-
     if (!admin?._id) {
-      setErrorMessage('Admin ID is missing.');
+      toast.error('Admin ID is missing.');
       return;
     }
 
     try {
       const deleteUrl = `${backendURL}/api/admin/delete/${admin._id}`;
-
       const options = {
         method: 'DELETE',
         headers: {
@@ -90,19 +84,16 @@ const AdminDelete = () => {
       if (response.ok) {
         localStorage.removeItem('adminInfo');
         localStorage.removeItem('adminToken');
-        setSuccessMessage('✅ Admin account deleted successfully!');
+        toast.success('Admin account deleted successfully!');
         setShowModal(false);
         setPassword('');
-
-        setTimeout(() => {
-          navigate('/adminRegister');
-        }, 2000);
+        setTimeout(() => navigate('/adminRegister'), 2000);
       } else {
-        setErrorMessage(data.message || '❌ Failed to delete admin.');
+        toast.error(data.message || 'Failed to delete admin.');
       }
     } catch (error) {
       console.error('Error deleting admin:', error);
-      setErrorMessage('❌ Server error. Please try again later.');
+      toast.error('Server error. Please try again later.');
     }
   };
 
@@ -133,18 +124,6 @@ const AdminDelete = () => {
         <p className="text-gray-700 mb-4">
           Full Name: <strong>{admin.fullName}</strong>
         </p>
-
-        {successMessage && (
-          <p className="text-green-600 text-sm font-semibold mb-4">
-            {successMessage}
-          </p>
-        )}
-
-        {errorMessage && (
-          <p className="text-red-500 text-sm font-semibold mb-4">
-            {errorMessage}
-          </p>
-        )}
 
         <div className="flex gap-4 justify-center">
           <button
@@ -177,18 +156,11 @@ const AdminDelete = () => {
                 />
               )}
 
-              {errorMessage && (
-                <p className="text-red-500 text-sm mb-3 text-center">
-                  {errorMessage}
-                </p>
-              )}
-
               <div className="flex justify-between">
                 <button
                   onClick={() => {
                     setShowModal(false);
                     setPassword('');
-                    setErrorMessage('');
                   }}
                   className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
                   Cancel

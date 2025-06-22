@@ -47,8 +47,11 @@ const UserHeader = () => {
           if (parsedUser.profileImage.startsWith('/uploads/')) {
             imageURL = `${backendURL}${parsedUser.profileImage}`;
           } else {
-            imageURL = parsedUser.profileImage; 
+            imageURL = parsedUser.profileImage;
           }
+        } else if (parsedUser.picture) {
+          // Google OAuth fallback
+          imageURL = parsedUser.picture;
         }
 
         setProfileImageUrl(imageURL);
@@ -59,7 +62,7 @@ const UserHeader = () => {
       setUser(null);
       setProfileImageUrl(null);
     }
-  }, [location.pathname]); 
+  }, [location.pathname]);
 
   const navLinks = [
     { label: 'Home', path: '/', icon: <Home size={18} /> },

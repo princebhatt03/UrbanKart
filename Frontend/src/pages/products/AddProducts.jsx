@@ -12,6 +12,8 @@ import {
   Upload,
 } from 'lucide-react';
 import { io } from 'socket.io-client';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddProduct = () => {
   const navigate = useNavigate();
@@ -25,7 +27,6 @@ const AddProduct = () => {
 
   const [imageFile, setImageFile] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState({ type: '', text: '' });
   const [socket, setSocket] = useState(null);
 
   const backendURL =
@@ -34,7 +35,6 @@ const AddProduct = () => {
   useEffect(() => {
     const newSocket = io(backendURL);
     setSocket(newSocket);
-
     return () => newSocket.disconnect();
   }, [backendURL]);
 
@@ -50,7 +50,6 @@ const AddProduct = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     setLoading(true);
-    setMessage({ type: '', text: '' });
 
     try {
       const token = localStorage.getItem('adminToken');
@@ -69,19 +68,19 @@ const AddProduct = () => {
         },
       });
 
-      setMessage({ type: 'success', text: res.data.message });
+      toast.success(res.data.message || 'Product added successfully!');
 
       if (socket) {
-        socket.emit('newProductUploaded', res.data.product); 
+        socket.emit('newProductUploaded', res.data.product);
       }
 
       setFormData({ name: '', price: '', category: '', description: '' });
       setImageFile(null);
 
-      setTimeout(() => navigate('/adminHome'), 1500);
+      setTimeout(() => navigate('/adminHome'), 2000);
     } catch (err) {
       const errorMsg = err.response?.data?.message || 'Something went wrong';
-      setMessage({ type: 'error', text: errorMsg });
+      toast.error(errorMsg);
     } finally {
       setLoading(false);
     }
@@ -100,17 +99,6 @@ const AddProduct = () => {
         />{' '}
         Add New Product
       </h2>
-
-      {message.text && (
-        <div
-          className={`mb-4 p-3 rounded-md text-sm text-center ${
-            message.type === 'success'
-              ? 'bg-green-100 text-green-700'
-              : 'bg-red-100 text-red-700'
-          }`}>
-          {message.text}
-        </div>
-      )}
 
       <form
         onSubmit={handleSubmit}
@@ -204,19 +192,13 @@ const AddProduct = () => {
           )}
           {loading ? 'Adding Product...' : 'Add Product'}
         </motion.button>
+
         <motion.button
+          type="button"
           onClick={() => navigate('/adminHome')}
           disabled={loading}
           whileTap={{ scale: 0.96 }}
           className="w-full bg-red-600 hover:bg-red-700 transition duration-200 text-white font-semibold py-2 rounded-lg shadow-md flex justify-center items-center gap-2">
-          {loading ? (
-            <Loader2
-              className="animate-spin"
-              size={20}
-            />
-          ) : (
-            <Upload size={20} />
-          )}
           Cancel
         </motion.button>
       </form>

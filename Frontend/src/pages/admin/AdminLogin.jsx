@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { motion } from 'framer-motion';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import adminBg from '../../assets/images/login.png';
 import Header from '../../components/AdminHeader';
 import Footer from '../../components/Footer';
@@ -16,8 +18,6 @@ const AdminLogin = () => {
     password: '',
   });
 
-  const [message, setMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleChange = e => {
@@ -40,23 +40,20 @@ const AdminLogin = () => {
         localStorage.setItem('adminToken', data.token);
         localStorage.setItem('adminInfo', JSON.stringify(admin));
 
-        setSuccessMessage('✅ Google login successful!');
-        setMessage('');
+        toast.success('Google login successful!');
         setTimeout(() => navigate('/adminHome'), 1500);
       } catch (err) {
         console.error('Google login failed:', err);
-        setMessage('⚠️ Google login failed.');
-      } finally {
-        setTimeout(() => setMessage(''), 4000);
+        toast.error('⚠️ Google login failed.');
       }
     } else {
-      setMessage('⚠️ Google login was cancelled or failed.');
+      toast.error('⚠️ Google login was cancelled or failed.');
     }
   };
 
   const googleLogin = useGoogleLogin({
     onSuccess: onGoogleSuccess,
-    onError: () => setMessage('⚠️ Google login failed.'),
+    onError: () => toast.error('⚠️ Google login failed.'),
     flow: 'auth-code',
   });
 
@@ -65,7 +62,7 @@ const AdminLogin = () => {
     const { adminUsername, adminID, password } = adminLoginData;
 
     if (!adminUsername.trim() || !adminID.trim() || !password.trim()) {
-      setMessage('⚠️ All fields are required.');
+      toast.error('⚠️ All fields are required.');
       return;
     }
 
@@ -86,7 +83,7 @@ const AdminLogin = () => {
         const { admin, token } = response.data;
 
         if (!admin || !token) {
-          setMessage('❌ Invalid admin credentials.');
+          toast.error('Invalid admin credentials.');
           return;
         }
 
@@ -94,23 +91,16 @@ const AdminLogin = () => {
         localStorage.setItem('adminToken', token);
         localStorage.setItem('adminInfo', JSON.stringify(admin));
 
-        setSuccessMessage('✅ Login successful!');
-        setMessage('');
+        toast.success('Login successful!');
         setTimeout(() => navigate('/adminHome'), 1500);
       } else {
-        setMessage(response.data.message || '❌ Login failed.');
-        setSuccessMessage('');
+        toast.error(response.data.message || 'Login failed.');
       }
     } catch (err) {
-      const errorMsg = err.response?.data?.message || '❌ Login failed.';
-      setMessage(errorMsg);
-      setSuccessMessage('');
+      const errorMsg = err.response?.data?.message || 'Login failed.';
+      toast.error(errorMsg);
     } finally {
       setLoading(false);
-      setTimeout(() => {
-        setMessage('');
-        setSuccessMessage('');
-      }, 4000);
     }
   };
 
@@ -128,23 +118,6 @@ const AdminLogin = () => {
             <h2 className="text-3xl font-extrabold mb-6 text-center md:text-left text-orange-700">
               Admin Login
             </h2>
-
-            {message && (
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-red-600 mb-4 text-center font-medium">
-                {message}
-              </motion.p>
-            )}
-            {successMessage && (
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-green-600 mb-4 text-center font-medium">
-                {successMessage}
-              </motion.p>
-            )}
 
             <form
               onSubmit={handleLogin}

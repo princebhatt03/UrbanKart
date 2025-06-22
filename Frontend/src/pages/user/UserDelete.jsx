@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import defaultImage from '../../assets/images/prof.webp';
 
 const UserDelete = () => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [isGoogleUser, setIsGoogleUser] = useState(false);
@@ -55,11 +55,8 @@ const UserDelete = () => {
   }, [navigate]);
 
   const handleDelete = async () => {
-    setErrorMessage('');
-    setSuccessMessage('');
-
     if (!user || !user._id) {
-      setErrorMessage('User ID is missing.');
+      toast.error('User ID is missing.');
       return;
     }
 
@@ -83,19 +80,19 @@ const UserDelete = () => {
       if (response.ok) {
         localStorage.removeItem('userInfo');
         localStorage.removeItem('userToken');
-        setSuccessMessage('User account deleted successfully!');
+        toast.success('Account deleted successfully!');
         setShowModal(false);
         setPassword('');
 
         setTimeout(() => {
           navigate('/userRegister');
-        }, 2000);
+        }, 2500); // Allow toast to show before redirect
       } else {
-        setErrorMessage(data.message || 'Failed to delete user.');
+        toast.error(data.message || 'Failed to delete user.');
       }
     } catch (error) {
       console.error('Delete error:', error);
-      setErrorMessage('Server error. Please try again later.');
+      toast.error('Server error. Please try again later.');
     }
   };
 
@@ -135,12 +132,6 @@ const UserDelete = () => {
           </p>
         )}
 
-        {successMessage && (
-          <p className="text-green-600 text-sm font-semibold mb-4">
-            {successMessage}
-          </p>
-        )}
-
         <div className="flex gap-4 justify-center">
           <button
             onClick={() => navigate('/')}
@@ -161,12 +152,6 @@ const UserDelete = () => {
                 Confirm Deletion
               </h3>
 
-              {errorMessage && (
-                <p className="text-red-500 text-sm mb-3 text-center">
-                  {errorMessage}
-                </p>
-              )}
-
               {!isGoogleUser && (
                 <input
                   type="password"
@@ -183,7 +168,6 @@ const UserDelete = () => {
                   onClick={() => {
                     setShowModal(false);
                     setPassword('');
-                    setErrorMessage('');
                   }}
                   className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
                   Cancel
