@@ -1,202 +1,254 @@
 # 🛒 UrbanKart - MERN E-Commerce Platform
 
-UrbanKart is a full-stack E-Commerce web application built using the MERN stack (MongoDB, Express.js, React.js, and Node.js). It features robust authentication, Google OAuth login, dynamic product management, secure admin/user roles, and fully functional REST APIs.
+**UrbanKart** is a feature-rich, scalable, and secure **E-Commerce Web Application** built using the **MERN stack** (MongoDB, Express.js, React.js, Node.js). It supports **User and Admin authentication**, **Google OAuth**, **Profile & Product Management**, and is built for high performance and extensibility.
 
 ---
 
 ## 🌐 Live Demo
 
-**Website Link:** [Visit Website](https://urbankart-ecommerce.onrender.com)
-
-**Portfolio:** [Visit Portfolio](https://princebhatt03.github.io/Portfolio)
+- **Website**: [UrbanKart Live](https://urbankart-ecommerce.onrender.com)
+- **Portfolio**: [Prince Bhatt](https://princebhatt03.github.io/Portfolio)
 
 ---
 
-## 🧠 Tech Stack
+## 🧰 Tech Stack
 
-### 🔧 Backend
-- **Node.js** with **Express.js**
-- **MongoDB Atlas**
-- **JWT (JSON Web Token)** for secure authentication
+### 🛠️ Backend
+- **Node.js** & **Express.js**
+- **MongoDB Atlas** (Cloud NoSQL Database)
+- **Mongoose** for ODM
+- **JWT** (JSON Web Tokens) for secure session management
+- **Google OAuth 2.0** for Social Login
+- **Bcrypt.js** for hashing passwords
 - **Multer** for file/image uploads
-- **Bcrypt.js** for password hashing
-- **Google OAuth 2.0**
-- **Render** for deployment
+- **Cors**, **Dotenv**, **Morgan** for environment control, security, and logging
+- **Render** for backend deployment
 
 ### 🎨 Frontend
 - **React.js** (with Hooks)
-- **React Router DOM**
-- **Tailwind CSS** for styling
-- **Framer Motion** for UI animations
-- **Axios** for API calls
+- **React Router DOM** for SPA navigation
+- **Tailwind CSS** for utility-first styling
+- **Framer Motion** for animations
+- **Axios** for API handling
+- **React Toastify** for user alerts
+- **Vite** for faster builds (if used)
 
 ---
 
-## 📚 Features
+## 🚀 Getting Started
 
-### 👤 User Features
-- User Registration & Login (JWT)
-- Profile Management with Image Upload
-- Google OAuth Login Support
-- Delete User Profile with Password Confirmation
+### 📦 Clone & Install
 
-### 👨‍💼 Admin Features
-- Admin Registration & Login (JWT)
-- Google OAuth Admin Registration/Login
-- Profile Update & Image Upload
-- Secure Password Change Flow
-- Delete Admin Profile (Password protected)
-
-### 🛍️ Product Features
-- Add, Update, Delete Products (Admin only)
-- View All Products (Public)
-- View Single Product (Admin only)
-
----
-
-## 🔐 Authentication & Security
-
-- 🔑 JWT tokens are used for session persistence and route protection.
-- 🧠 Admin/User sessions are stored in `localStorage`.
-- 🔒 Passwords are securely hashed using Bcrypt.
-- 👮 Protected routes using middlewares for both users and admins.
-- 🛡️ Secure file/image uploads via Multer middleware.
-
----
-
-## 🔐 Google OAuth
-
-- Admins and Users can log in using their Google accounts.
-- Uses **OAuth 2.0 Authorization Code Flow** for enhanced security.
-- Google accounts are flagged internally using a special `_GoogleAuth` password pattern to bypass normal password validation.
-
----
-
-## 📁 Folder Structure (Backend)
-
+```bash
+git clone https://github.com/princebhatt03/UrbanKart-E-Commerce
+cd UrbanKart-E-Commerce
 ```
+🔧 Backend Setup
+```
+cd Backend
+npm install
+npm run dev
+```
+💻 Frontend Setup
+```
+cd Frontend
+npm install
+npm run dev
+```
+📚 Features
+👤 USER FEATURES
+✅ Register/Login with email and password
 
-UrbanKart/
+🔐 Login with Google OAuth 2.0
+
+🖼️ Upload/Update profile picture
+
+🔄 Profile updates (Name, Email, Password)
+
+🧹 Delete account (with password confirmation)
+
+🛍️ Browse all products
+
+👨‍💼 ADMIN FEATURES
+📝 Register/Login with secure authentication
+
+🔐 Google OAuth Login (Admins)
+
+🖼️ Upload/Update profile image
+
+✏️ Manage Products: Add, Edit, Delete
+
+❌ Delete admin (requires password confirmation)
+
+🔐 Protected admin-only routes and access
+
+🛍️ PRODUCT FEATURES
+👁️ View all products (open to all)
+
+📦 Add/Edit/Delete product (admin-only)
+
+🖼️ Upload product images with Multer
+
+🔍 View single product (admin-only)
+
+💳 UPCOMING FEATURES (Coming Soon)
+🛒 Add to Cart / Wishlist System
+
+💵 Razorpay/Stripe Payment Gateway Integration
+
+📦 Order Placement, Tracking, & History
+
+📈 Admin Analytics Dashboard (Revenue, Sales)
+
+📱 Mobile Responsive Design / PWA Support
+
+📡 Real-Time Notifications using Socket.io
+
+🔐 AUTHENTICATION FLOW
+🔑 JWT AUTHENTICATION
+Used for both User and Admin sessions
+
+Stored in localStorage
+
+Protects routes with custom middleware
+
+🧠 GOOGLE OAUTH FLOW
+OAuth 2.0 Authorization Code Grant Type
+
+Used for both User and Admin login/registration
+
+Google-logged accounts are saved with a placeholder password (e.g. _GoogleAuth)
+
+Custom logic prevents password validation on OAuth accounts
+
+📁 BACKEND FOLDER STRUCTURE
+```
+Backend/
 │
 ├── controllers/
-│ ├── admin.controller.js
-│ ├── admin.google.controller.js
-│ ├── user.controller.js
-│ ├── google.controller.js
-│ └── product.controller.js
+│   ├── admin.controller.js
+│   ├── user.controller.js
+│   ├── product.controller.js
+│   ├── google.controller.js
+│   └── admin.google.controller.js
 │
 ├── middlewares/
-│ ├── admin.js
-│ ├── user.js
-│ └── upload.js
+│   ├── admin.js
+│   ├── user.js
+│   └── upload.js
 │
 ├── models/
-│ ├── Admin.js
-│ ├── User.js
-│ └── Product.js
+│   ├── Admin.js
+│   ├── User.js
+│   └── Product.js
 │
 ├── routes/
-│ ├── admin.routes.js
-│ ├── user.routes.js
-│ ├── product.routes.js
-│ └── google.routes.js
+│   ├── admin.routes.js
+│   ├── user.routes.js
+│   ├── product.routes.js
+│   └── google.routes.js
 │
-├── uploads/
+├── uploads/ (Static file storage)
 ├── .env
 ├── server.js
 └── ...
+```
+🔌 API ROUTES
+
+👨‍💼 ADMIN ROUTES
+```
+| Method | Endpoint                        | Protected  | Description                      |
+| ------ | ------------------------------- | ---------  | -------------------------------- |
+| POST   | `/api/admin/register`           | ❌         | Register new admin with image    |
+| POST   | `/api/admin/login`              | ❌         | Admin login                      |
+| GET    | `/api/admin/google-login`       | ❌         | Google OAuth Admin login         |
+| PUT    | `/api/admin/updateAdminProfile` | ✅         | Update profile info/image        |
+| DELETE | `/api/admin/delete/:id`         | ✅         | Delete admin (password required) |
+| POST   | `/api/admin/logout`             | ❌         | Logout (Client-side)             |
 
 ```
+👤 USER ROUTES
+```
+| Method | Endpoint                      | Protected   | Description                     |
+| ------ | ----------------------------- | ---------   | ------------------------------- |
+| GET    | `/api/user/`                  | ❌         | Test route                      |
+| POST   | `/api/user/register`          | ❌         | Register user with image        |
+| POST   | `/api/user/login`             | ❌         | Login as user                   |
+| GET    | `/api/google`                 | ❌         | Google OAuth login for users    |
+| PUT    | `/api/user/updateUserProfile` | ✅         | Update profile/image            |
+| DELETE | `/api/user/delete/:id`        | ✅         | Delete user (password required) |
 
-## 📮 API Routes
+```
+🛍️ PRODUCT ROUTES
+```
+| Method | Endpoint           | Protected  | Description              |
+| ------ | ------------------ | ---------  | ------------------------ |
+| POST   | `/api/product/add` | ✅ (Admin) | Add a new product        |
+| GET    | `/api/product/`    | ❌         | Get all products         |
+| GET    | `/api/product/:id` | ✅ (Admin) | Get single product by ID |
+| PUT    | `/api/product/:id` | ✅ (Admin) | Update product by ID     |
+| DELETE | `/api/product/:id` | ✅ (Admin) | Delete product by ID     |
 
-### 🔐 Admin Routes
+```
+## 🌐 Environment Variables Setup
 
-| Method | Endpoint                          | Protected | Description                        |
-|--------|-----------------------------------|-----------|------------------------------------|
-| POST   | `/api/admin/register`             | ❌        | Register new admin with image     |
-| POST   | `/api/admin/login`                | ❌        | Admin login                        |
-| GET    | `/api/admin/google-login`         | ❌        | Admin Google OAuth login           |
-| PUT    | `/api/admin/updateAdminProfile`   | ✅        | Update profile with optional image |
-| DELETE | `/api/admin/delete/:id`           | ✅        | Delete admin with password check   |
-| POST   | `/api/admin/logout`               | ❌        | Logout (handled client-side)       |
-
----
-
-### 👤 User Routes
-
-| Method | Endpoint                          | Protected | Description                        |
-|--------|-----------------------------------|-----------|------------------------------------|
-| GET    | `/api/user/`                      | ❌        | Test route                         |
-| POST   | `/api/user/register`              | ❌        | Register new user with image       |
-| POST   | `/api/user/login`                 | ❌        | User login                         |
-| PUT    | `/api/user/updateUserProfile`     | ✅        | Update profile with optional image |
-| DELETE | `/api/user/delete/:id`            | ✅        | Delete user with password check    |
-
----
-
-### 🛍️ Product Routes
-
-| Method | Endpoint              | Protected | Description                |
-|--------|-----------------------|-----------|----------------------------|
-| POST   | `/api/product/add`    | ✅ (Admin) | Add a new product          |
-| GET    | `/api/product/`       | ❌        | Get all products           |
-| GET    | `/api/product/:id`    | ✅ (Admin) | Get a single product       |
-| PUT    | `/api/product/:id`    | ✅ (Admin) | Update product by ID       |
-| DELETE | `/api/product/:id`    | ✅ (Admin) | Delete product by ID       |
-
----
-
-### 🌐 Google OAuth Routes
-
-| Method | Endpoint                 | Protected | Description                       |
-|--------|--------------------------|-----------|-----------------------------------|
-| GET    | `/api/google`            | ❌        | Google User OAuth redirect        |
-| GET    | `/api/google-login`      | ❌        | Google Admin OAuth redirect       |
-
----
-
-## 🔑 Environment Variables
-
+### 🔒 Backend: `backend/.env`
 ```env
 PORT=3000
-MONGO_URI=<Your MongoDB URI>
-JWT_SECRET=<Your JWT Secret>
-GOOGLE_CLIENT_ID=<Google OAuth Client ID>
-GOOGLE_CLIENT_SECRET=<Google OAuth Client Secret>
-GOOGLE_REDIRECT_URI=http://localhost:3000/api/admin/google-login
+DB_CONNECT=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+JWT_TIMEOUT=1d
+FRONTEND_URL=your_frontend_URL
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+```
+### 🎯 Frontend: `frontend/.env`
+```env
+VITE_BACKEND_URL=http://localhost:3000
+VITE_GOOGLE_CLIENT_ID=your_google_client_id
+```
+🚀 Project Setup
+📦 Backend
+```
+cd backend
+npm install
+nodemon or npx nodemon
 ```
 
-📸 Screenshots
-
-![s7](https://github.com/user-attachments/assets/9f4bf388-578d-4a5f-870a-8734ff92af31)
-![s8](https://github.com/user-attachments/assets/a5e16270-80f8-48aa-9780-2fd86648639e)
-
-🚀 Getting Started
-Backend
-cd UrbanKart/Backend
+💻 Frontend
+```
+cd frontend
 npm install
 npm run dev
-Frontend
-cd UrbanKart/Frontend
-npm install
-npm run dev
+```
+🖼️ Screenshots
+![s1](https://github.com/user-attachments/assets/c641e61c-4325-4679-b195-d822dd70ccf8)
+![s2](https://github.com/user-attachments/assets/55072845-b2db-4616-8b78-6e0dc3295fff)
 
-📌 Upcoming Features
-🛒 Add to Cart & Wishlist
+🧩 Future Integrations
+🛒 Cart/Wishlist Functionality (Per User basis using MongoDB)
 
-💳 Payment Gateway Integration
+💳 Payment Gateway Integration (Stripe/Razorpay)
 
-📦 Order Placement & Tracking
+📦 Order Module (CRUD, Status, Invoice)
 
-📈 Admin Analytics Dashboard
+📈 Dashboard Analytics for Admins
 
-📱 Responsive PWA Support
+🧾 PDF Receipts, Email Confirmation
+
+🧑‍🤝‍🧑 User Reviews & Ratings
+
+📡 Socket.io: Real-time order and admin notifications
+
+🔒 Role-based Access Control (RBAC)
 
 👨‍💻 Developer
 Prince Bhatt
 
-📧 princebhatt316@gmail.com
+📧 Email: princebhatt316@gmail.com
 
-🌐 Portfolio: https://princebhatt03.github.io/Portfolio
+🌐 Portfolio: Visit Portfolio
 
+💼 GitHub: princebhatt03
+
+💬 LinkedIn: Prince Bhatt
