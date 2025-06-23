@@ -20,7 +20,6 @@ const paymentRoutes = require('./routes/payment.routes');
 const orderRoutes = require('./routes/order.routes');
 
 connectToDb();
-
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
