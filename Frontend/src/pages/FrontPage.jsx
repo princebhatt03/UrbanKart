@@ -35,7 +35,7 @@ const FrontPage = () => {
       setProducts(prev =>
         prev.map(p => (p._id === updatedProduct._id ? updatedProduct : p))
       );
-      toast.info(`🔄 Product updated: ${updatedProduct.name}`);
+      toast(`🔄 Product updated: ${updatedProduct.name}`, { icon: 'ℹ️' });
     });
 
     socket.on('product-deleted', productId => {

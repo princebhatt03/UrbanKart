@@ -23,7 +23,8 @@ import CheckoutPage from './pages/products/Checkout';
 import FAQPage from './components/FAGPage';
 import Orders from './pages/MyOrdersPage';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import { Toaster } from 'react-hot-toast'; 
+import { Toaster } from 'react-hot-toast';
+import axios from 'axios';
 
 function App() {
   const [user, setUser] = useState(null);

@@ -15,6 +15,8 @@ const adminRoutes = require('./routes/admin.routes');
 const productRoutes = require('./routes/product.routes');
 const authRouter = require('./routes/auth.routes');
 const cartRoutes = require('./routes/cart.routes');
+const Razorpay = require('./services/payment.service');
+const paymentRoutes = require('./routes/payment.routes');
 const orderRoutes = require('./routes/order.routes');
 
 connectToDb();
@@ -95,6 +97,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/payment', paymentRoutes);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 module.exports = { app, server };
