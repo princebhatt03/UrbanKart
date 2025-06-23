@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import toast, { Toaster } from 'react-hot-toast'; 
 
 const EditProduct = () => {
   const { id } = useParams();
@@ -93,8 +92,12 @@ const EditProduct = () => {
 
   return (
     <div className="max-w-xl mx-auto mt-10 p-6 bg-white shadow-md rounded">
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />{' '}
+      {/* ✅ added */}
       <h2 className="text-2xl font-bold text-center mb-4">Edit Product</h2>
-
       <form
         onSubmit={handleSubmit}
         encType="multipart/form-data"

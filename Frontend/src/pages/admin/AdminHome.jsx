@@ -4,8 +4,7 @@ import Header from '../../components/UserHeader';
 import axios from 'axios';
 import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa';
 import AdminHeader from '../../components/AdminHeader';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import toast, { Toaster } from 'react-hot-toast';
 
 const AdminHome = () => {
   const BACKEND_URL =
@@ -68,6 +67,11 @@ const AdminHome = () => {
   return (
     <>
       <AdminHeader />
+      {/* ✅ Global Hot Toast Component */}
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
       <div className="bg-gray-100 min-h-screen px-4 py-10">
         <h1 className="text-4xl font-extrabold text-center text-orange-700 mb-2">
           Admin's Dashboard

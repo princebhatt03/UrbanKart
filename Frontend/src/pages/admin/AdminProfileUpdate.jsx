@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import toast, { Toaster } from 'react-hot-toast';
 import image1 from '../../assets/images/prof.webp';
 
 const AdminProfileUpdate = () => {
@@ -175,6 +174,11 @@ const AdminProfileUpdate = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-yellow-100 via-white to-orange-100 p-4 sm:p-6">
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />{' '}
+      {/* ✅ Add Toaster */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

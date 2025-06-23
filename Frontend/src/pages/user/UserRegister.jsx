@@ -6,7 +6,7 @@ import Header from '../../components/UserHeader';
 import Footer from '../../components/Footer';
 import { useGoogleLogin } from '@react-oauth/google';
 import { googleAuth } from '../../api';
-import { toast } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast';
 
 const UserRegister = () => {
   const navigate = useNavigate();
@@ -41,7 +41,7 @@ const UserRegister = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    setLoading(true); 
+    setLoading(true);
 
     const finalURL =
       import.meta.env.VITE_BACKEND_URL ||
@@ -93,7 +93,7 @@ const UserRegister = () => {
       console.error('Registration Error:', error);
       toast.error('⚠️ Server error! Please try again later.');
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 

@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useGoogleLogin } from '@react-oauth/google';
-import { toast } from 'react-toastify';
-
+import toast, { Toaster } from 'react-hot-toast';
 import Header from '../../components/UserHeader';
 import Footer from '../../components/Footer';
 import img1 from '../../assets/images/login.png';

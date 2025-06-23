@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast'; 
 import UserHeader from '../../components/UserHeader';
 import Footer from '../../components/Footer';
 import axios from 'axios';
@@ -31,12 +31,10 @@ export default function CheckoutPage() {
     e.preventDefault();
     setIsLoading(true);
 
-    // Show loader for 2s before showing modal
     setTimeout(() => {
       setIsLoading(false);
       setShowModal(true);
 
-      // Auto-close modal after 3s and place order
       setTimeout(() => {
         handleModalClose();
       }, 3000);
@@ -49,7 +47,6 @@ export default function CheckoutPage() {
     try {
       const token = localStorage.getItem('userToken');
 
-      // Save order to backend
       await axios.post(
         `${BACKEND_URL}/api/orders`,
         {
@@ -63,7 +60,6 @@ export default function CheckoutPage() {
         }
       );
 
-      // Clear cart
       await axios.delete(`${BACKEND_URL}/api/cart/clear`, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
@@ -79,6 +75,11 @@ export default function CheckoutPage() {
 
   return (
     <>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />{' '}
+      {/* ✅ Added */}
       <UserHeader />
       <main className="min-h-screen px-4 sm:px-8 py-8 bg-[#f9fafb] text-[#141414] relative">
         <h2 className="text-2xl font-bold mb-6 text-center">Checkout</h2>

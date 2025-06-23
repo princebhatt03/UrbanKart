@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import toast, { Toaster } from 'react-hot-toast';
 import defaultImage from '../../assets/images/prof.webp';
 
 const UserDelete = () => {
@@ -86,7 +85,7 @@ const UserDelete = () => {
 
         setTimeout(() => {
           navigate('/userRegister');
-        }, 2500); // Allow toast to show before redirect
+        }, 2500);
       } else {
         toast.error(data.message || 'Failed to delete user.');
       }

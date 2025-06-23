@@ -20,11 +20,10 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Shop from './pages/products/Shop';
 import CheckoutPage from './pages/products/Checkout';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import FAQPage from './components/FAGPage';
 import Orders from './pages/MyOrdersPage';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { Toaster } from 'react-hot-toast'; 
 
 function App() {
   const [user, setUser] = useState(null);
@@ -34,45 +33,43 @@ function App() {
     if (info) setUser(JSON.parse(info));
   }, []);
 
-  // Wrappers for OAuth pages
-  const GoogleAuthWrapper = () => {
-    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-    return (
-      <GoogleOAuthProvider clientId={clientId}>
-        <UserLogin onLogin={setUser} />
-      </GoogleOAuthProvider>
-    );
-  };
+  const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
-  const GoogleAuthWrapper1 = () => {
-    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-    return (
-      <GoogleOAuthProvider clientId={clientId}>
-        <UserRegister />
-      </GoogleOAuthProvider>
-    );
-  };
+  const GoogleAuthWrapper = () => (
+    <GoogleOAuthProvider clientId={clientId}>
+      <UserLogin onLogin={setUser} />
+    </GoogleOAuthProvider>
+  );
 
-  const GoogleAuthWrapper2 = () => {
-    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-    return (
-      <GoogleOAuthProvider clientId={clientId}>
-        <AdminLogin />
-      </GoogleOAuthProvider>
-    );
-  };
+  const GoogleAuthWrapper1 = () => (
+    <GoogleOAuthProvider clientId={clientId}>
+      <UserRegister />
+    </GoogleOAuthProvider>
+  );
 
-  const GoogleAuthWrapper3 = () => {
-    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-    return (
-      <GoogleOAuthProvider clientId={clientId}>
-        <AdminRegister />
-      </GoogleOAuthProvider>
-    );
-  };
+  const GoogleAuthWrapper2 = () => (
+    <GoogleOAuthProvider clientId={clientId}>
+      <AdminLogin />
+    </GoogleOAuthProvider>
+  );
+
+  const GoogleAuthWrapper3 = () => (
+    <GoogleOAuthProvider clientId={clientId}>
+      <AdminRegister />
+    </GoogleOAuthProvider>
+  );
 
   return (
     <>
+      {/* ✅ Global toast for entire app, shown only once */}
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        toastOptions={{
+          duration: 3000,
+        }}
+      />
+
       <Routes>
         <Route
           path="/"
@@ -186,18 +183,11 @@ function App() {
           path="/admin/edit/:id"
           element={<EditProduct />}
         />
-        {/* Catch-All for unknown routes */}
         <Route
           path="*"
           element={<ErrorPage />}
         />
       </Routes>
-
-      {/* ✅ Outside Routes — Works Fine Now */}
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-      />
     </>
   );
 }

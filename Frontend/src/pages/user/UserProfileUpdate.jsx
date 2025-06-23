@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import toast, { Toaster } from 'react-hot-toast';
 import Footer from '../../components/Footer';
 import UserHeader from '../../components/UserHeader';
 import defaultAvatar from '../../assets/images/prof.webp';

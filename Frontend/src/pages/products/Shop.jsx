@@ -5,8 +5,7 @@ import { ShoppingCart, Star, Eye, Heart } from 'lucide-react';
 import UserHeader from '../../components/UserHeader';
 import Footer from '../../components/Footer';
 import { useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import toast, { Toaster } from 'react-hot-toast';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
 
@@ -125,11 +124,9 @@ export default function Shop() {
       </section>
       <Footer />
 
-      {/* ✅ Toast Container */}
-      <ToastContainer
+      <Toaster
         position="top-right"
-        autoClose={3000}
-        pauseOnHover={false}
+        reverseOrder={false}
       />
     </>
   );

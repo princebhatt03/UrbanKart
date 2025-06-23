@@ -10,7 +10,7 @@ import FrontShop from '../components/FrontShop';
 import FeaturedBeautyPicks from '../components/BeautySection';
 import { Parallax } from 'swiper/modules';
 import KidsParallaxSection from '../components/Parallex';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast'; // ✅ no <Toaster /> here
 import { useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
 

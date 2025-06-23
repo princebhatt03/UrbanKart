@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { motion } from 'framer-motion';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import toast, { Toaster } from 'react-hot-toast'; // ✅ replaced toastify
 import adminBg from '../../assets/images/login.png';
 import Header from '../../components/AdminHeader';
 import Footer from '../../components/Footer';
@@ -107,6 +106,11 @@ const AdminLogin = () => {
   return (
     <>
       <Header />
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />{' '}
+      {/* ✅ Add Toaster */}
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-orange-50 to-yellow-100 px-4 py-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import { FaTrashAlt } from 'react-icons/fa';
 import { FiMinus, FiPlus } from 'react-icons/fi';
 import { MdShoppingCart } from 'react-icons/md';
-import { toast } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast'; 
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
 
@@ -86,6 +86,11 @@ export default function CartPage() {
 
   return (
     <>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />{' '}
+      {/* ✅ Add Toaster */}
       <UserHeader />
       <main className="bg-[#f9fafb] min-h-screen text-[#141414] font-sans px-4 py-8 sm:px-8">
         <motion.h2

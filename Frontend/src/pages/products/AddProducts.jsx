@@ -12,8 +12,7 @@ import {
   Upload,
 } from 'lucide-react';
 import { io } from 'socket.io-client';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import toast, { Toaster } from 'react-hot-toast';
 
 const AddProduct = () => {
   const navigate = useNavigate();
@@ -87,122 +86,129 @@ const AddProduct = () => {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-      className="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-2xl rounded-2xl">
-      <h2 className="text-3xl font-extrabold text-center text-orange-600 mb-6 flex items-center justify-center gap-2">
-        <Upload
-          className="text-orange-500"
-          size={28}
-        />{' '}
-        Add New Product
-      </h2>
+    <>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />{' '}
+      {/* ✅ Add Toaster */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-2xl rounded-2xl">
+        <h2 className="text-3xl font-extrabold text-center text-orange-600 mb-6 flex items-center justify-center gap-2">
+          <Upload
+            className="text-orange-500"
+            size={28}
+          />{' '}
+          Add New Product
+        </h2>
 
-      <form
-        onSubmit={handleSubmit}
-        className="space-y-5"
-        encType="multipart/form-data">
-        <div className="flex flex-col">
-          <label className="text-gray-700 font-semibold flex items-center gap-1">
-            <Tag size={18} /> Product Name
-          </label>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-            placeholder="Enter product name"
-            className="px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
-          />
-        </div>
-
-        <div className="flex flex-col">
-          <label className="text-gray-700 font-semibold flex items-center gap-1">
-            <IndianRupee size={18} /> Price (₹)
-          </label>
-          <input
-            type="text"
-            name="price"
-            value={formData.price}
-            onChange={handleChange}
-            required
-            placeholder="Enter price"
-            className="px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
-          />
-        </div>
-
-        <div className="flex flex-col">
-          <label className="text-gray-700 font-semibold flex items-center gap-1">
-            <Type size={18} /> Category
-          </label>
-          <input
-            type="text"
-            name="category"
-            value={formData.category}
-            onChange={handleChange}
-            required
-            placeholder="Enter product category"
-            className="px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
-          />
-        </div>
-
-        <div className="flex flex-col">
-          <label className="text-gray-700 font-semibold flex items-center gap-1">
-            <StickyNote size={18} /> Description
-          </label>
-          <textarea
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            required
-            rows="3"
-            placeholder="Enter product description"
-            className="px-4 py-2 border rounded-md shadow-sm resize-none focus:outline-none focus:ring-2 focus:ring-orange-400"></textarea>
-        </div>
-
-        <div className="flex flex-col">
-          <label className="text-gray-700 font-semibold flex items-center gap-1">
-            <ImagePlus size={18} /> Product Image
-          </label>
-          <input
-            type="file"
-            name="image"
-            accept="image/*"
-            onChange={handleFileChange}
-            required
-            className="px-4 py-2 border rounded-md file:mr-4 file:py-2 file:px-4 file:border-0 file:rounded-md file:bg-orange-600 file:text-white hover:file:bg-orange-700"
-          />
-        </div>
-
-        <motion.button
-          type="submit"
-          disabled={loading}
-          whileTap={{ scale: 0.96 }}
-          className="w-full bg-orange-600 hover:bg-orange-700 transition duration-200 text-white font-semibold py-2 rounded-lg shadow-md flex justify-center items-center gap-2">
-          {loading ? (
-            <Loader2
-              className="animate-spin"
-              size={20}
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-5"
+          encType="multipart/form-data">
+          <div className="flex flex-col">
+            <label className="text-gray-700 font-semibold flex items-center gap-1">
+              <Tag size={18} /> Product Name
+            </label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+              placeholder="Enter product name"
+              className="px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
             />
-          ) : (
-            <Upload size={20} />
-          )}
-          {loading ? 'Adding Product...' : 'Add Product'}
-        </motion.button>
+          </div>
 
-        <motion.button
-          type="button"
-          onClick={() => navigate('/adminHome')}
-          disabled={loading}
-          whileTap={{ scale: 0.96 }}
-          className="w-full bg-red-600 hover:bg-red-700 transition duration-200 text-white font-semibold py-2 rounded-lg shadow-md flex justify-center items-center gap-2">
-          Cancel
-        </motion.button>
-      </form>
-    </motion.div>
+          <div className="flex flex-col">
+            <label className="text-gray-700 font-semibold flex items-center gap-1">
+              <IndianRupee size={18} /> Price (₹)
+            </label>
+            <input
+              type="text"
+              name="price"
+              value={formData.price}
+              onChange={handleChange}
+              required
+              placeholder="Enter price"
+              className="px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+            />
+          </div>
+
+          <div className="flex flex-col">
+            <label className="text-gray-700 font-semibold flex items-center gap-1">
+              <Type size={18} /> Category
+            </label>
+            <input
+              type="text"
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+              required
+              placeholder="Enter product category"
+              className="px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+            />
+          </div>
+
+          <div className="flex flex-col">
+            <label className="text-gray-700 font-semibold flex items-center gap-1">
+              <StickyNote size={18} /> Description
+            </label>
+            <textarea
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              required
+              rows="3"
+              placeholder="Enter product description"
+              className="px-4 py-2 border rounded-md shadow-sm resize-none focus:outline-none focus:ring-2 focus:ring-orange-400"></textarea>
+          </div>
+
+          <div className="flex flex-col">
+            <label className="text-gray-700 font-semibold flex items-center gap-1">
+              <ImagePlus size={18} /> Product Image
+            </label>
+            <input
+              type="file"
+              name="image"
+              accept="image/*"
+              onChange={handleFileChange}
+              required
+              className="px-4 py-2 border rounded-md file:mr-4 file:py-2 file:px-4 file:border-0 file:rounded-md file:bg-orange-600 file:text-white hover:file:bg-orange-700"
+            />
+          </div>
+
+          <motion.button
+            type="submit"
+            disabled={loading}
+            whileTap={{ scale: 0.96 }}
+            className="w-full bg-orange-600 hover:bg-orange-700 transition duration-200 text-white font-semibold py-2 rounded-lg shadow-md flex justify-center items-center gap-2">
+            {loading ? (
+              <Loader2
+                className="animate-spin"
+                size={20}
+              />
+            ) : (
+              <Upload size={20} />
+            )}
+            {loading ? 'Adding Product...' : 'Add Product'}
+          </motion.button>
+
+          <motion.button
+            type="button"
+            onClick={() => navigate('/adminHome')}
+            disabled={loading}
+            whileTap={{ scale: 0.96 }}
+            className="w-full bg-red-600 hover:bg-red-700 transition duration-200 text-white font-semibold py-2 rounded-lg shadow-md flex justify-center items-center gap-2">
+            Cancel
+          </motion.button>
+        </form>
+      </motion.div>
+    </>
   );
 };
 

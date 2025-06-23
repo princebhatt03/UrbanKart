@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast';
 import defaultImage from '../../assets/images/prof.webp';
 
 const AdminDelete = () => {
@@ -107,6 +107,10 @@ const AdminDelete = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-orange-100 flex items-center justify-center px-4">
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
       <div className="bg-white shadow-xl rounded-xl p-8 w-full max-w-md text-center">
         <h2 className="text-2xl font-bold mb-4 text-red-600">
           Delete Admin Account

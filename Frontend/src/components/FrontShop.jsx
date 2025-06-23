@@ -3,8 +3,7 @@ import axios from 'axios';
 import { motion } from 'framer-motion';
 import { ShoppingCart, Star, Eye, Heart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import toast, { Toaster } from 'react-hot-toast';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
 
@@ -120,13 +119,6 @@ export default function Shop() {
           ))}
         </div>
       </section>
-
-      {/* ✅ Toast Container */}
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        pauseOnHover={false}
-      />
     </>
   );
 }

@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import axios from 'axios';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import toast, { Toaster } from 'react-hot-toast';
 import Header from '../../components/AdminHeader';
 import Footer from '../../components/Footer';
 import adminRegisterBg from '../../assets/images/register.jpg';
@@ -138,6 +137,11 @@ const AdminRegister = () => {
   return (
     <>
       <Header />
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />{' '}
+      {/* ✅ Add Toaster */}
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-100 to-blue-100 px-4 py-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
