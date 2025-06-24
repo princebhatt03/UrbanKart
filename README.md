@@ -1,6 +1,6 @@
 # 🛒 UrbanKart - MERN E-Commerce Platform
 
-**UrbanKart** is a feature-rich, scalable, and secure **E-Commerce Web Application** built using the **MERN stack** (MongoDB, Express.js, React.js, Node.js). It supports **User and Admin authentication**, **Google OAuth**, **Profile & Product Management**, and is built for high performance and extensibility.
+**UrbanKart** is a feature-rich, scalable, and secure **E-Commerce Web Application** built using the **MERN stack** (MongoDB, Express.js, React.js, Node.js). It supports **User and Admin authentication**, **Google OAuth**, **Profile & Product Management**, **Payment Gateway** and is built for high performance and extensibility.
 
 ---
 
