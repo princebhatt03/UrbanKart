@@ -42,7 +42,7 @@
 
 ```bash
 git clone https://github.com/princebhatt03/UrbanKart
-cd UrbanKart-E-Commerce
+cd UrbanKart
 ```
 ### 🔧 Backend Setup
 ```
