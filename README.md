@@ -1,6 +1,6 @@
 # 🛒 UrbanKart - MERN E-Commerce Platform
 
-**UrbanKart** is a feature-rich, scalable, and secure **E-Commerce Web Application** built using the **MERN stack** (MongoDB, Express.js, React.js, Node.js). It supports **User and Admin authentication**, **Google OAuth**, **Profile & Product Management**, and is built for high performance and extensibility.
+**UrbanKart** is a feature-rich, scalable, and secure **E-Commerce Web Application** built using the **MERN stack** (MongoDB, Express.js, React.js, Node.js). It supports **User and Admin authentication**, **Google OAuth**, **Profile & Product Management**, **Payment Gateway** and is built for high performance and extensibility.
 
 ---
 
@@ -23,6 +23,7 @@
 - **Multer** for file/image uploads
 - **Cors**, **Dotenv**, **Morgan** for environment control, security, and logging
 - **Render** for backend deployment
+- **Razorpay** for payment Gateway
 
 ### 🎨 Frontend
 - **React.js** (with Hooks)
@@ -41,7 +42,7 @@
 
 ```bash
 git clone https://github.com/princebhatt03/UrbanKart
-cd UrbanKart-E-Commerce
+cd UrbanKart
 ```
 ### 🔧 Backend Setup
 ```
@@ -119,6 +120,15 @@ Used for both User and Admin login/registration
 Google-logged accounts are saved with a placeholder password (e.g. _GoogleAuth)
 
 Custom logic prevents password validation on OAuth accounts
+
+## 💳 Razorpay / Payment Gateway Flow
+Add a Field in User Model (or Payment Model)
+
+Separate Flow in Razorpay Checkout
+
+Frontend UX Consideration
+
+Associate them with orders, transactions, or one-time guest checkouts
 
 ### 📁 BACKEND FOLDER STRUCTURE
 ```
@@ -200,25 +210,14 @@ JWT_TIMEOUT=1d
 FRONTEND_URL=your_frontend_URL
 GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
+RAZORPAY_KEY_ID=your_razorpay_id
+RAZORPAY_KEY_SECRET=your_razorpay_secret
 ```
 ### 🎯 Frontend: `frontend/.env`
 ```env
 VITE_BACKEND_URL=http://localhost:3000
 VITE_GOOGLE_CLIENT_ID=your_google_client_id
-```
-### 🚀 Project Setup
-## 📦 Backend
-```
-cd backend
-npm install
-nodemon or npx nodemon
-```
-
-## 💻 Frontend
-```
-cd frontend
-npm install
-npm run dev
+VITE_RAZORPAY_KEY_ID=your_razorpay_id
 ```
 ## 🖼️ Screenshots
 ![s1](https://github.com/user-attachments/assets/c641e61c-4325-4679-b195-d822dd70ccf8)
@@ -234,8 +233,8 @@ Prince Bhatt
 
 📧 Email: princebhatt316@gmail.com
 
-🌐 Portfolio: Visit Portfolio
+🌐 Portfolio: [Prince Bhatt](https://princebhatt03.github.io/Portfolio)
 
-💼 GitHub: princebhatt03
+💼 GitHub: [princebhatt03](https://github.com/princebhatt03)
 
-💬 LinkedIn: Prince Bhatt
+💬 LinkedIn: [Prince Bhatt](https://www.linkedin.com/in/prince-bhatt-0958a725a/)
