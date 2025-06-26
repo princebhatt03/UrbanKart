@@ -10,7 +10,7 @@ import FrontShop from '../components/FrontShop';
 import FeaturedBeautyPicks from '../components/BeautySection';
 import { Parallax } from 'swiper/modules';
 import KidsParallaxSection from '../components/Parallex';
-import toast from 'react-hot-toast'; // ✅ no <Toaster /> here
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
 
@@ -22,7 +22,6 @@ const FrontPage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // ✅ Initialize socket
   useEffect(() => {
     const socket = io(BACKEND_URL);
 

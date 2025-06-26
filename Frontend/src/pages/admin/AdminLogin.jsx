@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { motion } from 'framer-motion';
-import toast, { Toaster } from 'react-hot-toast'; // ✅ replaced toastify
+import toast, { Toaster } from 'react-hot-toast'; 
 import adminBg from '../../assets/images/login.png';
 import Header from '../../components/AdminHeader';
 import Footer from '../../components/Footer';

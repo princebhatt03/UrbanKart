@@ -3,7 +3,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Menu, X, LayoutDashboard, LogOut } from 'lucide-react';
 import logo from '../assets/images/logo.png';
-import defaultAvatar from '../assets/images/prof.webp';
+import defaultAvatar from '../assets/images/prof.jpg';
 
 const AdminHeader = () => {
   const [menuOpen, setMenuOpen] = useState(false);

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import toast, { Toaster } from 'react-hot-toast';
 import Footer from '../../components/Footer';
 import UserHeader from '../../components/UserHeader';
-import defaultAvatar from '../../assets/images/prof.webp';
+import defaultAvatar from '../../assets/images/prof.jpg';
 
 const UserProfileUpdate = () => {
   const navigate = useNavigate();

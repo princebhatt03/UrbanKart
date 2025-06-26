@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import toast, { Toaster } from 'react-hot-toast';
-import image1 from '../../assets/images/prof.webp';
+import image1 from '../../assets/images/prof.jpg';
 
 const AdminProfileUpdate = () => {
   const navigate = useNavigate();

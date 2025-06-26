@@ -24,7 +24,6 @@ import FAQPage from './components/FAGPage';
 import Orders from './pages/MyOrdersPage';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Toaster } from 'react-hot-toast';
-import axios from 'axios';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -62,7 +61,6 @@ function App() {
 
   return (
     <>
-      {/* ✅ Global toast for entire app, shown only once */}
       <Toaster
         position="top-center"
         reverseOrder={false}

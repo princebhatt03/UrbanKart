@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
-import defaultImage from '../../assets/images/prof.webp';
+import defaultImage from '../../assets/images/prof.jpg';
 
 const AdminDelete = () => {
   const navigate = useNavigate();
