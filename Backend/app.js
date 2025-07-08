@@ -84,12 +84,12 @@ if (!fs.existsSync(uploadPath)) {
   fs.mkdirSync(uploadPath, { recursive: true });
 }
 
-// ✅ Routes
 app.get('/', (req, res) => {
   const redirectUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
   return res.redirect(redirectUrl);
 });
 
+// ✅ Routes
 app.use('/auth', authRouter);
 app.use('/api/user', userRoutes);
 app.use('/api/admin', adminRoutes);

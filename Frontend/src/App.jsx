@@ -25,6 +25,7 @@ import Orders from './pages/MyOrdersPage';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Toaster } from 'react-hot-toast';
 
+// Commit changes
 function App() {
   const [user, setUser] = useState(null);
 
