@@ -107,3 +107,4 @@ app.use('/api/payment', paymentRoutes);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 module.exports = { app, server };
+
