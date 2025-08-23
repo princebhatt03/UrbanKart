@@ -31,7 +31,7 @@ const io = new Server(server, {
 
 app.set('io', io);
 
-// ✅ Socket.IO connection events
+// Socket.IO connection events
 io.on('connection', socket => {
   console.log('✅ Socket connected');
 
@@ -40,7 +40,7 @@ io.on('connection', socket => {
   });
 });
 
-// ✅ CORS
+// CORS
 const allowedOrigins = [process.env.FRONTEND_URL || 'http://localhost:5173'];
 
 app.use(
@@ -58,12 +58,12 @@ app.use(
   })
 );
 
-// ✅ Middleware
+// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// ✅ Sessions
+// Sessions
 app.use(
   session({
     secret: process.env.SESSION_SECRET || 'your-secret-key',
@@ -82,10 +82,10 @@ app.use(
   })
 );
 
-// ✅ Flash
+// Flash
 app.use(flash());
 
-// ✅ Uploads folder
+// Uploads folder
 const uploadPath = path.join(__dirname, 'public/uploads');
 if (!fs.existsSync(uploadPath)) {
   fs.mkdirSync(uploadPath, { recursive: true });
@@ -96,7 +96,7 @@ app.get('/', (req, res) => {
   return res.redirect(redirectUrl);
 });
 
-// ✅ Routes
+// Routes
 app.use('/auth', authRouter);
 app.use('/api/user', userRoutes);
 app.use('/api/admin', adminRoutes);
@@ -107,5 +107,3 @@ app.use('/api/payment', paymentRoutes);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 module.exports = { app, server };
-
-// Commit for Testing Purpose

@@ -192,5 +192,3 @@ function App() {
 }
 
 export default App;
-
-// Commit for Testing Purpose
