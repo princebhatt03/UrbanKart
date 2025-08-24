@@ -1,6 +1,6 @@
 # 🛒 UrbanKart - MERN E-Commerce Platform
 
-**UrbanKart** is a feature-rich, scalable, and secure **E-Commerce Web Application** built using the **MERN stack** (MongoDB, Express.js, React.js, Node.js). It supports **User and Admin authentication**, **Google OAuth**, **Profile & Product Management**, **Payment Gateway** and is built for high performance and extensibility.
+**UrbanKart** is a feature-rich, scalable, and secure **E-Commerce Web Application** built using the **MERN stack** (MongoDB, Express.js, React.js, Node.js). It supports **User and Admin authentication**, **Google OAuth**, **Profile & Product Management**, **Payment Gateway**, **AI Chatbot** and is built for high performance and extensibility.
 
 ---
 
@@ -24,6 +24,7 @@
 - **Cors**, **Dotenv**, **Morgan** for environment control, security, and logging
 - **Render** for backend deployment
 - **Razorpay** for payment Gateway
+- **Gemini API Key** for AI Chatbot
 
 ### 🎨 Frontend
 - **React.js** (with Hooks)
@@ -212,6 +213,7 @@ GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
 RAZORPAY_KEY_ID=your_razorpay_id
 RAZORPAY_KEY_SECRET=your_razorpay_secret
+GEMINI_API_KEY=your_gemini_api_key
 ```
 ### 🎯 Frontend: `frontend/.env`
 ```env
@@ -229,8 +231,6 @@ VITE_RAZORPAY_KEY_ID=your_razorpay_id
 🧾 PDF Receipts, Email Confirmation
 
 🧑‍🤝‍🧑 User Reviews & Ratings
-
-🤖 AI Chatbot
 
 ### 👨‍💻 Developer
 Prince Bhatt
