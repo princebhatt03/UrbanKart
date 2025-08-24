@@ -250,7 +250,7 @@ const ChatBot = () => {
                   value={input}
                   onChange={e => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  placeholder="Ask about products, orders, returns…"
+                  placeholder="Ask about anything..."
                 />
                 <button
                   onClick={() => sendMessage()}
