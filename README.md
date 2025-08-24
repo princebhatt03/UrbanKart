@@ -225,8 +225,12 @@ VITE_RAZORPAY_KEY_ID=your_razorpay_id
 
 ### 🧩 Future Integrations
 📦 Order Module (CRUD, Status, Invoice)
+
 🧾 PDF Receipts, Email Confirmation
+
 🧑‍🤝‍🧑 User Reviews & Ratings
+
+🤖 AI Chatbot
 
 ### 👨‍💻 Developer
 Prince Bhatt
@@ -238,3 +242,9 @@ Prince Bhatt
 💼 GitHub: [princebhatt03](https://github.com/princebhatt03)
 
 💬 LinkedIn: [Prince Bhatt](https://www.linkedin.com/in/prince-bhatt-0958a725a/)
+
+📄 License
+
+This project is created and owned by Prince Bhatt
+
+✨Thank you for connecting...
