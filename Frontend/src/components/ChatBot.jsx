@@ -49,14 +49,7 @@ const ChatBot = () => {
     }
   }, [isOpen]);
 
-  // Auto-hide hint after 6 seconds
-  //   useEffect(() => {
-  //     if (showHint) {
-  //       const timer = setTimeout(() => setShowHint(false), 20000);
-  //       return () => clearTimeout(timer);
-  //     }
-  //   }, [showHint]);
-
+  // Suggestions
   const suggestions = useMemo(
     () => [
       'Show latest offers',
@@ -64,9 +57,26 @@ const ChatBot = () => {
       'Track my order',
       'What’s UrbanKart return policy?',
       'Suggest a gift for kids',
+      'Who is the Owner of Urbankart?',
     ],
     []
   );
+
+  // Predefined replies for some common queries
+  const predefinedReplies = {
+    'Show latest offers':
+      '🔥 Here are the latest offers: Flat 20% off on sneakers, Buy 1 Get 1 on T-Shirts!',
+    'Track my order':
+      '📦 Please share your Order ID so I can help you track your order.',
+    'Find men’s shoes under ₹2000':
+      '👟 Here are some options for men’s shoes under ₹2000: 1. Nike Revolution 5 - ₹1999 2. Adidas Runfalcon - ₹1999 3. Puma Smash - ₹1999. Would you like to see more details?',
+    'What’s UrbanKart return policy?':
+      '✅ Our return policy allows returns within 7 days of delivery and exchange within 14 days and your refund will be processed within 5-7 business days.',
+    'Suggest a gift for kids':
+      '🎁 Great choice! We recommend toys, kids’ books, or fashion accessories under ₹1000. Want me to show top picks?',
+    'Who is the Owner of Urbankart?':
+      "👤 The owner of UrbanKart is Prince Bhatt, He's a Full Stack Developer who developed this UrbanKart E-Commerce Platform.",
+  };
 
   const sendMessage = async msgText => {
     const text = (msgText ?? input).trim();
@@ -78,6 +88,19 @@ const ChatBot = () => {
 
     setMessages(prev => [...prev, { sender: 'user', text }]);
 
+    // Check predefined replies first
+    if (predefinedReplies[text]) {
+      setTimeout(() => {
+        setMessages(prev => [
+          ...prev,
+          { sender: 'bot', text: predefinedReplies[text] },
+        ]);
+        setLoading(false);
+      }, 500);
+      return;
+    }
+
+    // Otherwise call AI backend
     try {
       const res = await axios.post(
         `${BACKEND_URL}/api/chat`,
@@ -128,7 +151,7 @@ const ChatBot = () => {
   return (
     <>
       {/* Floating Chat Button + Hint */}
-      <div className="fixed bottom-4 right-6 z-50 flex flex-col items-end">
+      <div className="fixed bottom-4 right-8 z-50 flex flex-col items-end">
         {/* Hint Bubble */}
         <AnimatePresence>
           {showHint && !isOpen && (
@@ -174,7 +197,17 @@ const ChatBot = () => {
             className="fixed bottom-20 right-4 z-50 w-[95%] max-w-[22rem] sm:max-w-[24rem] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden max-h-[80vh]">
             {/* Header */}
             <div className="bg-gradient-to-r from-[#FF708E] to-[#ff5176] text-white px-4 py-3 flex items-center justify-between">
+              {/* Center: Profile Image */}
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png"
+                alt="AI Avatar"
+                className="w-10 h-10 flex items-center justify-center rounded-full border-2 border-white shadow-md"
+              />
+
+              {/* Left: Title */}
               <div className="font-semibold">UrbanKart AI Assistant</div>
+
+              {/* Right: Clear Chat Button */}
               <div className="flex items-center gap-2">
                 <button
                   onClick={clearChat}
@@ -262,12 +295,6 @@ const ChatBot = () => {
                   }`}>
                   Send
                 </button>
-              </div>
-              <div className="px-3 pb-3 text-[10px] text-gray-400">
-                Press <kbd className="px-1 py-0.5 border rounded">Enter</kbd> to
-                send • <kbd className="px-1 py-0.5 border rounded">Shift</kbd> +{' '}
-                <kbd className="px-1 py-0.5 border rounded">Enter</kbd> for new
-                line
               </div>
             </div>
           </motion.div>
