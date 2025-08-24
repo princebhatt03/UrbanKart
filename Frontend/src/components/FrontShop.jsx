@@ -66,9 +66,11 @@ export default function Shop() {
                   src={`${BACKEND_URL}${product.image}`}
                   alt={product.name}
                   className="w-full h-72 object-cover rounded-lg"
-                  onError={e =>
-                    (e.target.src = 'https://via.placeholder.com/300')
-                  }
+                  onError={e => {
+                    e.currentTarget.onerror = null; 
+                    e.currentTarget.src =
+                      'https://placehold.co/300x300?text=No+Image';
+                  }}
                 />
 
                 {product?.tag && (

@@ -5,14 +5,13 @@ import Header from '../components/UserHeader';
 import Footer from '../components/Footer';
 import Slider from '../components/Slider';
 import CollectionGrid from '../components/CollectionGrid';
-import StoreFeatures from '../components/BlogAndStoreFeatures';
 import FrontShop from '../components/FrontShop';
 import FeaturedBeautyPicks from '../components/BeautySection';
-import { Parallax } from 'swiper/modules';
 import KidsParallaxSection from '../components/Parallex';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
+import ChatBot from '../components/ChatBot';
 
 const FrontPage = () => {
   const navigate = useNavigate();
@@ -167,6 +166,8 @@ const FrontPage = () => {
       <FeaturedBeautyPicks />
       <KidsParallaxSection />
       <Footer />
+      {/* Floating AI Chatbot */}
+      <ChatBot />
     </>
   );
 };
