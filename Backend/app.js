@@ -97,7 +97,7 @@ app.get('/', (req, res) => {
   return res.redirect(redirectUrl);
 });
 
-// ✅ Added Test Route for Mobile App
+// Added Test Route for Mobile App
 app.get('/api/test', (req, res) => {
   res.json({ message: 'Hello from UrbanKart Backend 🚀' });
 });
