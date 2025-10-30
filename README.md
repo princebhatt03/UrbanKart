@@ -62,21 +62,21 @@ npm run dev
 
 If you prefer to run the entire project directly using Docker (no need to install Node.js or dependencies manually), follow these steps:
 
-# Clone the repository
+Clone the repository
 ```
 git clone https://github.com/princebhatt03/UrbanKart
 cd UrbanKart
 ```
-# Build the Docker images
+Build the Docker images
 ```
 docker compose build
 ```
-# Start the containers
+Start the containers
 ```
 docker compose up
 ```
 
-# Then open the following in your browser:
+Then open the following in your browser:
 ~~~
 Frontend (Vite + React): http://localhost:5173
 
@@ -274,4 +274,5 @@ Prince Bhatt
 This project is created and owned by Prince Bhatt
 
 ✨Thank you for connecting...
+
 
