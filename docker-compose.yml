@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./Backend
+    container_name: urbankart-backend
+    ports:
+      - '3000:3000' # host:container
+    env_file:
+      - ./Backend/.env
+    restart: always
+
+  frontend:
+    build: ./Frontend
+    container_name: urbankart-frontend
+    ports:
+      - '5173:80' # if using production build (Nginx)
+      # - "5173:5173"      # if using Vite dev server instead
+    env_file:
+      - ./Frontend/.env
+    depends_on:
+      - backend
+    restart: always
