@@ -19,6 +19,7 @@
 - **Mongoose** for ODM
 - **JWT** (JSON Web Tokens) for secure session management
 - **Google OAuth 2.0** for Social Login
+- **Docker** for containerisation
 - **Bcrypt.js** for hashing passwords
 - **Multer** for file/image uploads
 - **Cors**, **Dotenv**, **Morgan** for environment control, security, and logging
@@ -57,6 +58,31 @@ cd Frontend
 npm install
 npm run dev
 ```
+### 🐳 Run with Docker
+
+If you prefer to run the entire project directly using Docker (no need to install Node.js or dependencies manually), follow these steps:
+
+# Clone the repository
+```
+git clone https://github.com/princebhatt03/UrbanKart
+cd UrbanKart
+```
+# Build the Docker images
+```
+docker compose build
+```
+# Start the containers
+```
+docker compose up
+```
+
+# Then open the following in your browser:
+~~~
+Frontend (Vite + React): http://localhost:5173
+
+Backend (Node.js + Express): http://localhost:3000
+~~~
+
 ### 📚 Features
 ## 👤 USER FEATURES
 ✅ Register/Login with email and password
@@ -248,3 +274,4 @@ Prince Bhatt
 This project is created and owned by Prince Bhatt
 
 ✨Thank you for connecting...
+
